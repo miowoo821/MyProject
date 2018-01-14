@@ -31,9 +31,12 @@ public class ActivityPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_page);
+
         MyDBHelper dbHelper=new MyDBHelper(this);
-        dbR=dbHelper.getReadableDatabase();
+        dbR=dbHelper.getReadableDatabase();//把名為dbR的SQLiteDatabase物件賦予dbHelper.getReadableDatabase()功能
+
         lv2=(ListView)findViewById(R.id.listView2);
+
         Cursor cursor;
         cursor=dbR.query("act_list",new String[]{"_id","act_name","limted","act_S_D","act_E_D","F_S_D","F_E_D","ratio","memo"},
                 null,null,null,null,null);
@@ -145,8 +148,8 @@ public class ActivityPage extends AppCompatActivity {
         });
 //-------------------很重要--------------------------------------------------------------------
         final MyDBHelper dbHelper=new MyDBHelper(this);//新增一個名為db的SQLiteDatabase物件，不能在按下後才宣告
-        dbW=dbHelper.getWritableDatabase();//取得具有寫入功能的資料庫實體
-        dbR=dbHelper.getReadableDatabase();//取得具有讀取功能的資料庫實體
+        dbW=dbHelper.getWritableDatabase();//取得具有寫入功能的資料庫實體，//把名為dbR的SQLiteDatabase物件賦予dbHelper.getWritableDatabase()功能
+        dbR=dbHelper.getReadableDatabase();//取得具有讀取功能的資料庫實體，//把名為dbR的SQLiteDatabase物件賦予dbHelper.getReadableDatabase()功能
 //------------------很重要--------------------------------------------------------------------------------
         builder.setPositiveButton("確定", new DialogInterface.OnClickListener() {
 
