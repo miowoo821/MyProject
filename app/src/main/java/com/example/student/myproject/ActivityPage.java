@@ -13,20 +13,40 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CursorAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
 
 public class ActivityPage extends AppCompatActivity {
-    SQLiteDatabase db;//在此頁面新增一個名為db的SQLiteDatabase物件
-
+    SQLiteDatabase dbW;//在此頁面新增一個名為db的SQLiteDatabase物件，千萬要記得要用的時候還要給它等於dbHelper.getReadableDatabase();
+    SQLiteDatabase dbR;
+    ListView lv2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_page);
+        MyDBHelper dbHelper=new MyDBHelper(this);
+        dbR=dbHelper.getReadableDatabase();
+        lv2=(ListView)findViewById(R.id.listView2);
+        Cursor cursor;
+        cursor=dbR.query("act_list",new String[]{"_id","act_name","limted","act_S_D","act_E_D","F_S_D","F_E_D","ratio","memo"},
+                null,null,null,null,null);
+
+
+
+        CursorAdapter listAdapter=new SimpleCursorAdapter(this,
+                android.R.layout.simple_list_item_1,cursor,
+                new String[]{"_id","act_name","limted","act_S_D","act_E_D","F_S_D","F_E_D","ratio","memo"},
+                new int[]{android.R.id.text1},
+                0);
+
+        lv2.setAdapter(listAdapter);
     }
 
     @Override
@@ -123,10 +143,11 @@ public class ActivityPage extends AppCompatActivity {
                 },mYear, mMonth, mDay).show();
             }
         });
-
-        MyDBHelper dbHelper=new MyDBHelper(this);//新增一個名為db的SQLiteDatabase物件，不能在按下後才宣告
-        db=dbHelper.getWritableDatabase();//取得資料庫實體
-
+//-------------------很重要--------------------------------------------------------------------
+        final MyDBHelper dbHelper=new MyDBHelper(this);//新增一個名為db的SQLiteDatabase物件，不能在按下後才宣告
+        dbW=dbHelper.getWritableDatabase();//取得具有寫入功能的資料庫實體
+        dbR=dbHelper.getReadableDatabase();//取得具有讀取功能的資料庫實體
+//------------------很重要--------------------------------------------------------------------------------
         builder.setPositiveButton("確定", new DialogInterface.OnClickListener() {
 
             @Override
@@ -148,28 +169,29 @@ public class ActivityPage extends AppCompatActivity {
                 cv.put("F_E_D",F_E_D.toString());
                 cv.put("ratio",ratio.toString());
                 cv.put("memo",memo.toString());
-                db.insert("act_list",null,cv);
+                dbW.insert("act_list",null,cv);
 
-
-
-                TextView tv14=(TextView)findViewById(R.id.textView14);
-               //tv14.setText(cv.toString());
-                String _id="序號\n";
-//                String act_name="活動名稱\n";
-//                String limted="回饋上限\n";
-//                String act_S_D="活動開始日期\n";
-                String[] colum={"_id","act_name","limted","act_S_D"};
+                String _id="序號,";
+                String name="活動名稱,";
+                String lim="回饋上限,";
+                String S_D="活動開始日期,";
+                String[] colum={"_id","act_name","limted","act_S_D","act_E_D","F_S_D","F_E_D","ratio","memo"};
                 Cursor c;
-                c=db.query("act_list",colum,null,null,null,null,null);
+                c=dbR.query("act_list",colum,null,null,null,null,null);
+
+
+
                 if (c.getCount()>0){
                     c.moveToFirst();
                     for(int X=0 ; X<c.getCount();X++){
-                        _id +=(X+1)+"\n";
-//                        act_name +=c.getString(0) +"\n";
-//                        limted += c.getString(1) +"\n";
+//                        _id +=(X+1);
+//                      name+=c.getString(0) ;
+//                        lim+= c.getString(1)+"\n";
+                        String A=c.getString(0);
+                        String  B=c.getString(1);
+                        String C=c.getString(2);
+                        String  D=c.getString(3);
                         c.moveToNext();
-                        tv14.setText(_id);
-
                     }
                 }
                 Toast.makeText(ActivityPage.this,"新增成功",Toast.LENGTH_SHORT).show();
