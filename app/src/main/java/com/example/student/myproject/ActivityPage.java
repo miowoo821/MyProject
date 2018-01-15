@@ -21,12 +21,16 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Map;
 
 public class ActivityPage extends AppCompatActivity {
     SQLiteDatabase dbW;//在此頁面新增一個名為db的SQLiteDatabase物件，千萬要記得要用的時候還要給它等於dbHelper.getReadableDatabase();
     SQLiteDatabase dbR;
     ListView lv2;
+    ArrayList<Map<String,String>> act_list=new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,14 +46,13 @@ public class ActivityPage extends AppCompatActivity {
                 null,null,null,null,null);
 
 
-
         CursorAdapter listAdapter=new SimpleCursorAdapter(this,
                 android.R.layout.simple_list_item_1,cursor,
                 new String[]{"_id","act_name","limted","act_S_D","act_E_D","F_S_D","F_E_D","ratio","memo"},
                 new int[]{android.R.id.text1},
                 0);
-
-        lv2.setAdapter(listAdapter);
+        MyAdapter adapter=new MyAdapter(ActivityPage.this,act_list);
+        lv2.setAdapter(adapter);
     }
 
     @Override
