@@ -1,8 +1,11 @@
+package com.example.student.myproject;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CursorAdapter;
 import android.widget.TextView;
 
 import com.example.student.myproject.R;
@@ -16,9 +19,9 @@ import java.util.Map;
 
 public class MyAdapter extends BaseAdapter {
     Context context;
-    ArrayList<Map<String,String>> act_list=new ArrayList<>();
+    ArrayList<CursorAdapter> act_list=new ArrayList<>();
 
-    public MyAdapter(Context context,ArrayList<Map<String,String>> act_list){
+    public MyAdapter(Context context,ArrayList<CursorAdapter> act_list){
         this.context=context;
         this.act_list=act_list;
     }

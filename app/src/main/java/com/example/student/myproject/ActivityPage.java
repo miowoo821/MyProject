@@ -29,7 +29,8 @@ public class ActivityPage extends AppCompatActivity {
     SQLiteDatabase dbW;//在此頁面新增一個名為db的SQLiteDatabase物件，千萬要記得要用的時候還要給它等於dbHelper.getReadableDatabase();
     SQLiteDatabase dbR;
     ListView lv2;
-    ArrayList<Map<String,String>> act_list=new ArrayList<>();
+//    MyAdapter adapter;
+//    ArrayList<Map<String,String>> act_list=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,13 +47,16 @@ public class ActivityPage extends AppCompatActivity {
                 null,null,null,null,null);
 
 
-        CursorAdapter listAdapter=new SimpleCursorAdapter(this,
-                android.R.layout.simple_list_item_1,cursor,
+        SimpleCursorAdapter listAdapter=new SimpleCursorAdapter(ActivityPage.this,
+                R.layout.test,//切記！！不能擺constraintlayout
+                cursor,
                 new String[]{"_id","act_name","limted","act_S_D","act_E_D","F_S_D","F_E_D","ratio","memo"},
-                new int[]{android.R.id.text1},
+                //new int[]{R.id.act_list_id,R.id.act_list_name,R.id.act_list_ratio,R.id.act_list_actsd,R.id.act_list_acted},
+                new int[]{R.id.textView14,R.id.textView15,R.id.textView16,R.id.textView17,R.id.textView18,R.id.textView19,R.id.textView20,R.id.textView21,R.id.textView22},
                 0);
-        MyAdapter adapter=new MyAdapter(ActivityPage.this,act_list);
-        lv2.setAdapter(adapter);
+
+     //   adapter=new MyAdapter(ActivityPage.this,cursor);
+        lv2.setAdapter(listAdapter);
     }
 
     @Override
