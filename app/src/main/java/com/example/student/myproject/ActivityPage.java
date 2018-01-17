@@ -57,6 +57,7 @@ public class ActivityPage extends AppCompatActivity {
 
      //   adapter=new MyAdapter(ActivityPage.this,cursor);
         lv2.setAdapter(listAdapter);
+
     }
 
     @Override

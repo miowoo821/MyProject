@@ -110,9 +110,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.img_orderrecord:
-                Intent it=new Intent(MainActivity.this,OrderRecord.class);
+                    Intent it=new Intent(MainActivity.this,OrderRecord.class);
 
-                startActivity(it);
+                    startActivity(it);
                 break;
             case R.id.img_activityentry:
                 Intent it2=new Intent(MainActivity.this,ActivityPage.class);
