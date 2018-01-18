@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,7 +47,8 @@ public class ActivityPage extends AppCompatActivity {
         cursor=dbR.query("act_list",new String[]{"_id","act_name","limted","act_S_D","act_E_D","F_S_D","F_E_D","ratio","memo"},
                 null,null,null,null,null);
 
-
+        cursor.move(1);//這邊是移動到幾筆
+        Log.d("GHFDSGHSG",cursor.getString(0));//這邊的引數是輸入欄位，所以上面步驟不可少
         SimpleCursorAdapter listAdapter=new SimpleCursorAdapter(ActivityPage.this,
                 R.layout.test,//切記！！不能擺constraintlayout
                 cursor,
