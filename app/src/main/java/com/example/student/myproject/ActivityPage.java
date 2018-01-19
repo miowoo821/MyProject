@@ -30,6 +30,7 @@ public class ActivityPage extends AppCompatActivity {
     SQLiteDatabase dbW;//在此頁面新增一個名為db的SQLiteDatabase物件，千萬要記得要用的時候還要給它等於dbHelper.getReadableDatabase();
     SQLiteDatabase dbR;
     ListView lv2;
+    String  actd;
 //    MyAdapter adapter;
 //    ArrayList<Map<String,String>> act_list=new ArrayList<>();
 
@@ -55,7 +56,7 @@ public class ActivityPage extends AppCompatActivity {
                 new String[]{"_id","act_name","limted","act_S_D","act_E_D","F_S_D","F_E_D","ratio","memo"},
                 //new int[]{R.id.act_list_id,R.id.act_list_name,R.id.act_list_ratio,R.id.act_list_actsd,R.id.act_list_acted},
                 new int[]{R.id.textView14,R.id.textView15,R.id.textView16,R.id.textView17,R.id.textView18,R.id.textView19,R.id.textView20,R.id.textView21,R.id.textView22},
-                0);
+                1);
 
      //   adapter=new MyAdapter(ActivityPage.this,cursor);
         lv2.setAdapter(listAdapter);
@@ -75,15 +76,51 @@ public class ActivityPage extends AppCompatActivity {
 
         LayoutInflater inflater=LayoutInflater.from(ActivityPage.this);
         final View newactivity=inflater.inflate(R.layout.newactivity,null);
-
         final TextView tv1=newactivity.findViewById(R.id.act_start_date);
         final TextView tv2=newactivity.findViewById(R.id.act_end_date);
         final TextView tv3=newactivity.findViewById(R.id.feedback_start_date);
         final TextView tv4=newactivity.findViewById(R.id.feedback_end_date);
+
         tv1.setOnClickListener(new View.OnClickListener() {
+            int mYear, mMonth, mDay;
+            Calendar c;
             @Override
             public void onClick(View view) {
-                int mYear, mMonth, mDay;
+                c=Calendar.getInstance();
+                mYear = c.get(Calendar.YEAR);
+                mMonth = c.get(Calendar.MONTH);
+                mDay = c.get(Calendar.DAY_OF_MONTH);
+                //DatePickerDialog連續執行兩次，就有兩層DatePickerDialog，最上面那層就是比較後面執行的，所以先填的是後面的日期
+                //修正方法，在第一個DatePickerDialog關閉才跳出第二個
+                new DatePickerDialog(ActivityPage.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                        i1=i1+1;//幹為什麼月份是從0開始拉，所以這邊把月份手動+1
+                        actd = (String.valueOf(i+"/"+i1+"/"+i2));
+                        Log.d("GGGGGGGG1111111",actd);
+                        tv1.setText(actd);
+
+                        Log.d("GGGGGGGG1111111",tv1.getText().toString());
+
+                        new DatePickerDialog(ActivityPage.this, new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                                i1=i1+1;//幹為什麼月份是從0開始拉，所以這邊把月份手動+1
+                                actd = (String.valueOf(i+"/"+i1+"/"+i2));
+                                Log.d("GGGGGGGG2",actd);
+                                tv2.setText(actd);
+                                Log.d("GGGGGGGG222222222",tv2.getText().toString());
+                            }
+                        },mYear, mMonth, mDay).show();
+                    }
+                },mYear, mMonth, mDay).show();
+            }
+        });
+        tv2.setOnClickListener(new View.OnClickListener() {
+            int mYear, mMonth, mDay;
+            @Override
+            public void onClick(View view) {
+
                 Calendar c=Calendar.getInstance();
                 mYear = c.get(Calendar.YEAR);
                 mMonth = c.get(Calendar.MONTH);
@@ -95,33 +132,38 @@ public class ActivityPage extends AppCompatActivity {
                         String str = (String.valueOf(i+"/"+i1+"/"+i2));
 
                         tv1.setText(str);
-                    }
-                },mYear, mMonth, mDay).show();
-            }
-        });
-        tv2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int mYear, mMonth, mDay;
-                Calendar c=Calendar.getInstance();
-                mYear = c.get(Calendar.YEAR);
-                mMonth = c.get(Calendar.MONTH);
-                mDay = c.get(Calendar.DAY_OF_MONTH);
-                new DatePickerDialog(ActivityPage.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                        i1=i1+1;//幹為什麼月份是從0開始拉，所以這邊把月份手動+1
-                        String str = (String.valueOf(i+"/"+i1+"/"+i2));
+                        new DatePickerDialog(ActivityPage.this, new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                                i1=i1+1;//幹為什麼月份是從0開始拉，所以這邊把月份手動+1
+                                String str = (String.valueOf(i+"/"+i1+"/"+i2));
 
-                        tv2.setText(str);
+                                tv2.setText(str);
+                            }
+                        },mYear, mMonth, mDay).show();
                     }
                 },mYear, mMonth, mDay).show();
+////                int mYear, mMonth, mDay;
+////                Calendar c=Calendar.getInstance();
+//                mYear = c.get(Calendar.YEAR);
+//                mMonth = c.get(Calendar.MONTH);
+//                mDay = c.get(Calendar.DAY_OF_MONTH);
+//                new DatePickerDialog(ActivityPage.this, new DatePickerDialog.OnDateSetListener() {
+//                    @Override
+//                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+//                        i1=i1+1;//幹為什麼月份是從0開始拉，所以這邊把月份手動+1
+//                        String str = (String.valueOf(i+"/"+i1+"/"+i2));
+//
+//                        tv2.setText(str);
+//                    }
+//                },mYear, mMonth, mDay).show();
             }
         });
         tv3.setOnClickListener(new View.OnClickListener() {
+            int mYear, mMonth, mDay;
             @Override
             public void onClick(View view) {
-                int mYear, mMonth, mDay;
+
                 Calendar c=Calendar.getInstance();
                 mYear = c.get(Calendar.YEAR);
                 mMonth = c.get(Calendar.MONTH);
@@ -133,14 +175,24 @@ public class ActivityPage extends AppCompatActivity {
                         String str = (String.valueOf(i+"/"+i1+"/"+i2));
 
                         tv3.setText(str);
+                        new DatePickerDialog(ActivityPage.this, new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                                i1=i1+1;//幹為什麼月份是從0開始拉，所以這邊把月份手動+1
+                                String str = (String.valueOf(i+"/"+i1+"/"+i2));
+
+                                tv4.setText(str);
+                            }
+                        },i, i1-1, i2+13).show();
                     }
                 },mYear, mMonth, mDay).show();
             }
         });
         tv4.setOnClickListener(new View.OnClickListener() {
+            int mYear, mMonth, mDay;
             @Override
             public void onClick(View view) {
-                int mYear, mMonth, mDay;
+
                 Calendar c=Calendar.getInstance();
                 mYear = c.get(Calendar.YEAR);
                 mMonth = c.get(Calendar.MONTH);
@@ -151,7 +203,17 @@ public class ActivityPage extends AppCompatActivity {
                         i1=i1+1;//幹為什麼月份是從0開始拉，所以這邊把月份手動+1
                         String str = (String.valueOf(i+"/"+i1+"/"+i2));
 
-                        tv4.setText(str);
+                        tv3.setText(str);
+
+                        new DatePickerDialog(ActivityPage.this, new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                                i1=i1+1;//幹為什麼月份是從0開始拉，所以這邊把月份手動+1
+                                String str = (String.valueOf(i+"/"+i1+"/"+i2));
+
+                                tv4.setText(str);
+                            }
+                        },i, i1-1, i2+13).show();
                     }
                 },mYear, mMonth, mDay).show();
             }
