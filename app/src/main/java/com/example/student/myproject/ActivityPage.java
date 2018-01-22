@@ -236,16 +236,17 @@ public class ActivityPage extends AppCompatActivity {
                 EditText ratio=newactivity.findViewById(R.id.ratio);
                 EditText memo=newactivity.findViewById(R.id.memo);
                 ContentValues cv=new ContentValues();
-                cv.put("act_name",act_name.toString());
-                cv.put("limted",limted.toString());
-                cv.put("act_S_D",act_S_D.toString());
-                cv.put("act_E_D",act_E_D.toString());
-                cv.put("F_S_D",F_S_D.toString());
-                cv.put("F_E_D",F_E_D.toString());
-                cv.put("ratio",ratio.toString());
-                cv.put("memo",memo.toString());
-                dbW.insert("act_list",null,cv);
 
+
+                cv.put("act_name",act_name.getText().toString());
+                cv.put("limted",limted.getText().toString());
+                cv.put("act_S_D",act_S_D.getText().toString());
+                cv.put("act_E_D",act_E_D.getText().toString());
+                cv.put("F_S_D",F_S_D.getText().toString());
+                cv.put("F_E_D",F_E_D.getText().toString());
+                cv.put("ratio",ratio.getText().toString());
+                cv.put("memo",memo.getText().toString());
+                dbW.insert("act_list",null,cv);
                 String _id="序號,";
                 String name="活動名稱,";
                 String lim="回饋上限,";
@@ -253,6 +254,7 @@ public class ActivityPage extends AppCompatActivity {
                 String[] colum={"_id","act_name","limted","act_S_D","act_E_D","F_S_D","F_E_D","ratio","memo"};
                 Cursor c;
                 c=dbR.query("act_list",colum,null,null,null,null,null);
+
 
 
 
