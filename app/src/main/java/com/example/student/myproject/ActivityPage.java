@@ -73,9 +73,9 @@ public class ActivityPage extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item)  {
         AlertDialog.Builder builder=new AlertDialog.Builder(ActivityPage.this);
         builder.setTitle("登錄活動");
-
         LayoutInflater inflater=LayoutInflater.from(ActivityPage.this);
         final View newactivity=inflater.inflate(R.layout.newactivity,null);
+
         final TextView tv1=newactivity.findViewById(R.id.act_start_date);
         final TextView tv2=newactivity.findViewById(R.id.act_end_date);
         final TextView tv3=newactivity.findViewById(R.id.feedback_start_date);
@@ -168,7 +168,7 @@ public class ActivityPage extends AppCompatActivity {
                 mYear = c.get(Calendar.YEAR);
                 mMonth = c.get(Calendar.MONTH);
                 mDay = c.get(Calendar.DAY_OF_MONTH);
-                new DatePickerDialog(ActivityPage.this, new DatePickerDialog.OnDateSetListener() {
+                new DatePickerDialog(ActivityPage.this,android.R.style.Theme_Holo_Dialog, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                         i1=i1+1;//幹為什麼月份是從0開始拉，所以這邊把月份手動+1
@@ -280,8 +280,6 @@ public class ActivityPage extends AppCompatActivity {
             }
         });
         builder.setView(newactivity);
-
-
         builder.show();
         return super.onOptionsItemSelected(item);
     }

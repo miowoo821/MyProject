@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -53,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         LayoutInflater inflater=LayoutInflater.from(MainActivity.this);//layout解壓縮用的，可以把res裡面的layout挖出來
         View neworder=inflater.inflate(R.layout.neworder,null);//第一個參數是要放入的Layout,第二個放null(為什麼)
 
-        final TextView tv1=neworder.findViewById(R.id.new_order_date);
+        final TextView tv1=neworder.findViewById(R.id.New_order_date);
         tv1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

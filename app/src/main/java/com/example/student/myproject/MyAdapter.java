@@ -20,7 +20,7 @@ import java.util.Map;
 public class MyAdapter extends BaseAdapter {
     Context context;
     ArrayList<CursorAdapter> act_list=new ArrayList<>();
-
+    ArrayList<CursorAdapter> order_list=new ArrayList<>();
     public MyAdapter(Context context,ArrayList<CursorAdapter> act_list){
         this.context=context;
         this.act_list=act_list;

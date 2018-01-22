@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/Order_Id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="ID"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/Order_Date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="8dp"
+        android:text="訂單日期"
+        app:layout_constraintStart_toEndOf="@+id/Order_Id"
+        app:layout_constraintTop_toTopOf="@+id/Order_Id" />
+
+    <TextView
+        android:id="@+id/Order_Amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="訂單金額"
+        app:layout_constraintStart_toEndOf="@+id/Order_Date"
+        app:layout_constraintTop_toTopOf="@+id/Order_Date" />
+
+    <TextView
+        android:id="@+id/Order_N_Point"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="一般點數"
+        app:layout_constraintStart_toEndOf="@+id/Order_Amount"
+        app:layout_constraintTop_toTopOf="@+id/Order_Amount" />
+
+    <TextView
+        android:id="@+id/Order_memo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="備註"
+        app:layout_constraintStart_toEndOf="@+id/Order_N_Point"
+        app:layout_constraintTop_toTopOf="@+id/Order_N_Point" />
+</android.support.constraint.ConstraintLayout>
